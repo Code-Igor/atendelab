@@ -1,10 +1,10 @@
 <?php
 
 $host = 'localhost';
-$port = 'yourport';
+$port = '3306';
 $dbname = 'atendelab';
-$user = 'youruser';
-$password = 'yourpassword';
+$user = 'root';
+$password = '';
 
 try {
     $pdo = new PDO(
