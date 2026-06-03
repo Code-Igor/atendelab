@@ -26,6 +26,26 @@ CREATE TABLE pessoas (
 );
 
 
+CREATE TABLE tipos_atendimentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_atendimento ENUM('agendado', 'cancelado', 'concluido', 'em_andamento', 'remarcado') DEFAULT 'agendado'
+)
+
+-- 3 foreign keys
+CREATE TABLE atendimento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    pessoa_id INT NOT NULL, 
+    tipo_atendimento_id INT NOT NULL,
+    descricao VARCHAR(255),
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    CONSTRAINT fk_pessoa FOREIGN KEY (pessoa_id) REFERENCES pessoas(id),
+    CONSTRAINT fk_tipo_atendimento FOREIGN KEY (tipo_atendimento_id) REFERENCES tipos_atendimentos(id)
+)
+
+
 -- inserindo um usuário inicial para teste
 INSERT INTO usuarios (nome, email, senha, perfil, status)
 VALUES (
