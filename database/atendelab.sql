@@ -19,9 +19,8 @@ CREATE TABLE usuarios (
 CREATE TABLE pessoas ( 
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL, 
-    perfil ENUM('aluno', 'pessoa_atendida') DEFAULT 'pessoa_atendida',
-    email VARCHAR(100) UNIQUE,
-    numero VARCHAR(15) UNIQUE, 
+    email VARCHAR(100) UNIQUE NOT NULL,
+    numero VARCHAR(15) UNIQUE NOT NULL, 
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
