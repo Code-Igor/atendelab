@@ -1,7 +1,7 @@
 <?php
 
 // carrega o controller responsavel pelos endpoints de usuarios
-require_once __DIR__ . '/app/Controllers/UsuariosContoller.php'
+require_once __DIR__ . '\app\Controllers\UsuariosController.php';
 
 // define controller e action por query string
 // exemplo: ?controller=usuarios&action=listar
@@ -23,7 +23,7 @@ if ($controller == 'usuarios') {
             break;
         
         case 'criar': 
-            $usuariosController->criar()
+            $usuariosController->criar();
             break;
         
         case 'atualizar':

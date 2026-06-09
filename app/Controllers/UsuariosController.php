@@ -5,11 +5,11 @@
 
 class UsuariosController { 
     // conexão PDO reutilizada em todos os métodos
-    private PDO $pdo
+    private PDO $pdo;
     
     public function  __construct() {
         // importa o arquivo que inicializa o objeto $pdo
-        require __DIR__ . '/../../config/database.php';
+        require __DIR__ . '\..\..\config\database.php';
         $this->pdo = $pdo;
     }
 
@@ -44,7 +44,7 @@ class UsuariosController {
         // consulta parametrizada evita SQL injection
         $sql = 'SELECT id, nome, email, perfil, status, criado em
                 FROM usuarios
-                WHERE id = :id'
+                WHERE id = :id';
         
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -53,7 +53,7 @@ class UsuariosController {
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!usuario) {
-            http_response_code(400)
+            http_response_code(400);
             echo json_encode(['erro' => 'Usuário não encontrado.']);
             return;
         }
@@ -81,7 +81,7 @@ class UsuariosController {
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             http_response_code(400);
-            json_encode(['erro' => 'E-mail inválido.'])
+            json_encode(['erro' => 'E-mail inválido.']);
             return;
         }
 
@@ -115,7 +115,7 @@ class UsuariosController {
         } catch (PDOException $e) {
             // em produção, registre $e em lgo em vez de expor detalhes
             http_response_code(500);
-            echo json_encode(['erro' => 'Erro ao cadastrar usuário.'])
+            echo json_encode(['erro' => 'Erro ao cadastrar usuário.']);
         }
     }
 
@@ -179,6 +179,7 @@ class UsuariosController {
             http_response_code(500);
             echo json_encode(['erro' => 'Erro ao atualizar usuário.']);
         }
+    }
 
     public function excluir(): void {
         header('Content-Type: application/json; charset=utf-8');
