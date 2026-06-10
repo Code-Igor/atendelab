@@ -1,50 +1,38 @@
 <?php
 
-// carrega o controller responsavel pelos endpoints de usuarios
+// carrega os controllers 
 require_once __DIR__ . '\app\Controllers\UsuariosController.php';
+require_once __DIR__ . '\app\Controllers\PessoasController.php';
+
 
 // define controller e action por query string
 // exemplo: ?controller=usuarios&action=listar
-$controller = $_GET['controller'] ?? 'home';
+$controllerName = $_GET['controller'] ?? 'home';
 $action = $_GET['action'] ?? 'index';
 
-// este roteador é simples: só reconhece o controller 'usuarios'
-if ($controller == 'usuarios') {
-    $usuariosController = new UsuariosController();
+// o nome da classe do controller em si, para a validação do class_exists
+// exemplo: transforma usuarios em UsuariosController
+$controllerClass = ucfirst($controllerName) . 'Controller';
 
-    // escolhe qual método do controller executar
-    switch ($action) {
-        case 'listar':
-            $usuariosController->listar();
-            break;
 
-        case 'buscar': 
-            $usuariosController->buscarPorId();
-            break;
-        
-        case 'criar': 
-            $usuariosController->criar();
-            break;
-        
-        case 'atualizar':
-            $usuariosController->atualizar();
-            break;
-        
-        case 'excluir':
-            $usuariosController->excluir();
-            break;
-        
-        default:
-            // retorno padrão para action invalido
-            echo 'Ação de usuário não encontrada.';
-            break;
-    }
-} else {
+// verifica se a classe existe
+if (!class_exists($controllerClass)) {
+    http_response_code(400);
+    echo "Controller não encontrado";
+    exit;
+} 
 
-    // resposta básica para indicar que a aplicação está no ar
-    echo '<h1> AtendeLab </h1>';
-    echo '<p> Projeto em execução. Use ?controller=usuarios&action=listar para testar </p>';
-}
-
+// instancia do controller, que pode receber qualquer contorller
+$controllerInstance = new $controllerClass();
+    
+// verifica se o método existe
+if (!method_exists($controllerInstance, $action)) {
+    http_response_code(400);
+    echo "Action não encontrado.";
+    exit;
+} 
+    
+// executa o método 
+$controllerInstance->$action();
 
 ?>
