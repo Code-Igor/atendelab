@@ -146,6 +146,31 @@ class PessoasController {
 
     public function excluir(): void {
         header('Content-Type: application/json; charset=utf-8');
+
+               // exclusão por ID recebido no corpo da requisição.
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            http_response_code(400);
+            echo json_encode(['erro' => 'ID inválido.']);
+            return;
+        }
+
+        try {
+            $sql = 'DELETE FROM pessoas WHERE id = :id';
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            echo json_encode(
+                ['mensagem' => 'Pessoa excluída com sucesso.'],
+                JSON_UNESCAPED_UNICODE
+            );
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['erro' => 'Erro ao excluir pessoa.']);
+        }
     }
 }
 
