@@ -56,6 +56,44 @@ class PessoasController {
 
     public function criar(): void {
         header('Content-Type: application/json; charset=utf-8');
+
+         // coleta dados do formulário (POST)
+        $nome = trim($_POST['nome'] ?? '');
+        $documento = trim($_POST['documento'] ?? '');
+        $telefone = trim($_POST['telefone'] ?? '');
+        $curso = trim($_POST['curso'] ?? '');
+        $periodo = trim($_POST['periodo'] ?? '');
+
+
+        // regras mínimas de validação de entrada
+        if ($nome === '' || $documento === '') {
+            http_response_code(400);
+            echo json_encode(['erro' => 'Nome e documento são obrigatórios.']);
+            return;
+        }
+
+        try {
+            $sql = 'INSERT INTO pessoas (nome, documento, telefone, curso, periodo)
+                    VALUES (:nome, :documento, :telefone, :curso, :periodo)'; 
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':nome', $nome);
+            $stmt->bindValue(':documento', $documento);
+            $stmt->bindValue(':telefone', $telefone);
+            $stmt->bindValue(':curso', $curso);
+            $stmt->bindValue(':periodo', $periodo);
+            $stmt->execute();
+
+            http_response_code(201);
+            echo json_encode([
+                'mensagem' => 'Usuário cadastrado com sucesso.',
+                'id' => $this->pdo->lastInsertId()
+            ], JSON_UNESCAPED_UNICODE);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['erro' => 'Erro ao cadastrar usuário.']);
+        }
+
     }
 
     public function atualizar(): void {
