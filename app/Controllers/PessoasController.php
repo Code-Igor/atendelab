@@ -25,6 +25,33 @@ class PessoasController {
 
     public function buscarPorId(): void {
         header('Content-Type: application/json; charset=utf-8');
+
+        // lê e valida o ID recebido por GET
+        $id = filter_input(INPUT_GET, 'id, FILTER_VALIDATE_INT');
+
+        if(!$id) {
+            http_response_code(400);
+            echo json_encode(['erro' => 'ID inválido.']);
+            return;
+        }
+
+        $sql = 'SELECT id, nome, documento, telefone, curso, periodo, criado em
+                FROM pessoas
+                WHERE id = :id';
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!usuario) {
+            http_response_code(400);
+            echo json_encode(['erro' => 'Pessoa não encontrada.']);
+            return;
+        }
+
+        echo json_encode($usuario, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
     public function criar(): void {
