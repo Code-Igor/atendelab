@@ -110,7 +110,7 @@ class UsuariosController {
             http_response_code(201);
             echo json_encode([
                 'mensagem' => 'Usuário cadastrado com sucesso.',
-                'id' => $this->pdo->lastInsertedId()
+                'id' => $this->pdo->lastInsertId()
             ], JSON_UNESCAPED_UNICODE);
         } catch (PDOException $e) {
             // em produção, registre $e em lgo em vez de expor detalhes
