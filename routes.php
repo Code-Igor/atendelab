@@ -18,7 +18,7 @@ $controllerClass = ucfirst($controllerName) . 'Controller';
 // verifica se a classe existe
 if (!class_exists($controllerClass)) {
     http_response_code(400);
-    echo "Controller não encontrado";
+    echo json_encode(['erro' => 'Controller não encontrado.']);
     exit;
 } 
 
@@ -28,7 +28,7 @@ $controllerInstance = new $controllerClass();
 // verifica se o método existe
 if (!method_exists($controllerInstance, $action)) {
     http_response_code(400);
-    echo "Action não encontrado.";
+    echo json_encode(['erro' => 'Action não encontrado.']);
     exit;
 } 
     
