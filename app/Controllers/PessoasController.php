@@ -12,6 +12,15 @@ class PessoasController {
 
     public function listar(): void {
         header('Content-Type: application/json; charset=utf-8');
+
+        $sql = 'SELECT * 
+                FROM pessoas
+                ORDER BY id DESC';
+
+        $stmt = $this->pdo->query($sql);
+        $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($usuarios, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
     public function buscarPorId(): void {
