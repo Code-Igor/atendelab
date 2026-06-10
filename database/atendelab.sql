@@ -19,8 +19,10 @@ CREATE TABLE usuarios (
 CREATE TABLE pessoas ( 
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL, 
-    email VARCHAR(100) UNIQUE NOT NULL,
-    numero VARCHAR(15) UNIQUE NOT NULL, 
+    documento VARCHAR(20) UNIQUE NOT NULL,
+    telefone VARCHAR(12) UNIQUE, 
+    curso VARCHAR(50),
+    periodo VARCHAR(20),
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
@@ -36,7 +38,9 @@ CREATE TABLE atendimento (
     usuario_id INT NOT NULL,
     pessoa_id INT NOT NULL, 
     tipo_atendimento_id INT NOT NULL,
-    descricao VARCHAR(255),
+    data_hora_atendimento DATETIME,
+    descricao TEXT,
+    observacao TEXT,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
