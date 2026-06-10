@@ -98,6 +98,50 @@ class PessoasController {
 
     public function atualizar(): void {
         header('Content-Type: application/json; charset=utf-8');
+
+        // dados POST
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $nome = trim($_POST['nome'] ?? '');
+        $documento = trim($_POST['documento'] ?? '');
+        $telefone = trim($_POST['telefone'] ?? '');
+        $curso = trim($_POST['curso'] ?? '');
+        $periodo = trim($_POST['periodo'] ?? '');
+
+
+        // regras mínimas de validação de entrada
+        if ($nome === '' || $documento === '') {
+            http_response_code(400);
+            echo json_encode(['erro' => 'Nome e documento são obrigatórios.']);
+            return;
+        }
+
+
+        try {
+            $sql = 'UPDATE pessoas
+                    SET nome = :nome,
+                        documento = :documento,
+                        telefone = :telefone,
+                        curso = :curso,
+                        periodo = :periodo
+                    WHERE id = :id';
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':nome', $nome);
+            $stmt->bindValue(':documento', $documento);
+            $stmt->bindValue(':telefone', $telefone);
+            $stmt->bindValue(':curso', $curso);
+            $stmt->bindValue(':periodo', $periodo);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            echo json_encode(
+                ['mensagem' => 'Pessoa atualizada com sucesso.'],
+                JSON_UNESCAPED_UNICODE
+            );
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['erro' => 'Erro ao atualizar pessoa.']);
+        }
     }
 
     public function excluir(): void {
