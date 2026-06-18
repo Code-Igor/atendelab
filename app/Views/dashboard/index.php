@@ -1,76 +1,63 @@
 <!doctype html>
 <html lang="pt-br">
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
 
-    <title> Login - AtendeLab </title>
+    <title>Dashboard - AtendeLab</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 </head>
-
 <body class="bg-light">
 
+<nav class="navbar navbar-dark bg-dark">
     <div class="container">
-        <div class=" row justify-content-center mt-5">
-            <div class="col-md-6 col-lg-5"> 
-                <div class="card shadow-sm"> 
-                    <div class="card-body p-4">
-                        <h1 class="h4 mb-2">AtendeLab</h1>
-                        <p class="text-muted">
-                            Informe suas credenciais para acessar o sistema.
-                        </p>
-                
-                        <?php if (!empty($erro)):?>
-                            <div class="alert alert-danger">
-                                <?= htmlspecialchars(
-                                    $erro,
-                                    ENT_QUOTES,
-                                    'UTF-8'
-                                ) ?>
-                            </div>
-                        <?php endif; ?>
-                
-                        <?php if (!empty($mensagem)):?>
-                            ‹div class="alert alert-success">
-                                <?= htmlspecialchars(
-                                $mensagem,
-                                ENT_QUOTES,
-                                'UTF-8'
-                            )   ?>
-                            </div>
-                        <?php endif; ?>
+        <span class="navbar-brand">AtendeLab</span>
 
-                        <form method="POST" action="?controller=auth&action=entrar">
+        <a class="btn btn-outline-light btn-sm"
+           href="?controller=auth&action=logout">
+            Sair
+        </a>
+    </div>
+</nav>
 
-                            <div class="mb-3">
-                                <label for="email" class="form-label">
-                                    E-mail
-                                </label>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
 
-                                <input type="email" name="email" id="email" class="form-control" required>     
-                            </div>
+            <h1 class="h4">Area restrita</h1>
 
-                            <div class="mb-3">
-                                <label for="senha" class="form-label">
-                                    Senha
-                                </label>
+            <p class="mb-1">
+                Bem-vindo,
+                <strong>
+                    <?= htmlspecialchars(
+                        $usuario['nome'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    ) ?>
+                </strong>.
+            </p>
 
-                                <input type="password" name="senha" id="senha" class="form-control" required>     
-                            </div>
+            <p class="text-muted">
+                Perfil:
+                <?= htmlspecialchars(
+                    $usuario['perfil'],
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>
+            </p>
 
-                            <button type="submit" class="btn btn-primary w-100">
-                                Entrar
-                            </button> 
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <a class="btn btn-primary"
+               href="?controller=usuarios&action=listar">
+                Testar rota protegida de usuarios
+            </a>
+
         </div>
     </div>
-    
+</div>
+
 </body>
-
-
 </html>
