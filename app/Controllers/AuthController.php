@@ -1,7 +1,7 @@
 <?php
 
 //importa a conexão com o banco de dados
-require_once __DIR__ . '/../..config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 // importa funcoes auxiliares de autenticacao e sessao.
 require_once __DIR__ . '/../Middleware/auth.php';
@@ -16,10 +16,12 @@ class AuthController {
         global $pdo;
 
         // disponibiliza a conexão para os metodos da classe
-        this->pdo = $pdo;
+        $this->pdo = $pdo;
     }
 
-    public function exibirLogin(): void {
+    // prof: exibirLogin() = Login()
+    // decidi deixar só login() para facilitar no routes (funcionou com sucesso)
+    public function login(): void {
         // se o usuário já estiver logado, redireciona para o dashboard
         if (usuarioAutenticado()) {
             header('Location: ?controller=auth&action=dashboard');
@@ -53,7 +55,7 @@ class AuthController {
         if ($email === '' || $senha === '') {
             $_SESSION['erro_login'] = 'Informe o e-mail e a senha.';
 
-            header('Location: ?controller=auth&action=login')
+            header('Location: ?controller=auth&action=login');
         }
 
         // verifica se o email possui formato valido
@@ -68,7 +70,7 @@ class AuthController {
         $sql = 'SELECT id, nome, email, senha, perfil, status
                 FROM usuarios
                 WHERE email=:email
-                LIMIT 1'
+                LIMIT 1';
 
         //prepara a consulta para evitar SQL injection
         $stmt = $this->pdo->prepare($sql);
@@ -151,7 +153,7 @@ class AuthController {
         $_SESSION['mensagem'] = 'Sessão encerrada com sucesso.';
 
         //retorna para a tela de login
-        header('Location: ?controller=auth?action=login');
+        header('Location: ?controller=auth&action=login');
         exit;
     }
 }
