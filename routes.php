@@ -4,6 +4,8 @@
 require_once __DIR__ . '/app/Controllers/UsuariosController.php';
 require_once __DIR__ . '/app/Controllers/PessoasController.php';
 require_once __DIR__ . '/app/Controllers/AuthController.php';
+require_once __DIR__ . '/app/Controllers/TiposAtendimentosController.php';
+require_once __DIR__ . '/app/Controllers/AtendimentosController.php';
 require_once __DIR__ . '/app/Middleware/auth.php';
 
 // define controller e action por query string
