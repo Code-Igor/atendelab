@@ -25,13 +25,13 @@ class PessoasController {
         $this->json($this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    public function buscar(): void {
+    public function buscarPorId(): void {
         // lê e valida o ID recebido por GET
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        var_dump($_GET['id'] ?? null);
 
         if(!$id) {
-            http_response_code(400);
-            echo json_encode(['erro' => 'ID inválido.']);
+            $this->json(['erro' => 'ID inválido'], 400);
             return;
         }
 
@@ -46,7 +46,7 @@ class PessoasController {
 
         $pessoa = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!pessoa) {
+        if (!$pessoa) {
             $this->json(['erro' => 'Pessoa não encontrada'], 404);
             return;
         }
@@ -118,7 +118,7 @@ class PessoasController {
 
         // regras mínimas de validação de entrada
         if (!$id || $nome === '' || $documento === '' || $email === '') {
-            $this->json(['erro' => 'Dados obrigatórios ausentes.'], 422)
+            $this->json(['erro' => 'Dados obrigatórios ausentes.'], 422);
             return;
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
