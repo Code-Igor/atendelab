@@ -2,7 +2,7 @@
 
 class TiposAtendimentosController {
 
-    private PDO $pdo
+    private PDO $pdo;
 
     public function __construct() {
         require __DIR__ . '/../../config/database.php';
@@ -84,7 +84,7 @@ class TiposAtendimentosController {
             WHERE id = :id'
         );
         $stmt->execute(compact('id', 'nome', 'descricao', 'status'));
-        $this->json(['mensagem' => 'Tipo atualizado com sucesso'])
+        $this->json(['mensagem' => 'Tipo atualizado com sucesso']);
     }
 
     public function inativar(): void {
