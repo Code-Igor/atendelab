@@ -33,13 +33,15 @@
                         <?php endif; ?>
                 
                         <?php if (!empty($mensagem)):?>
-                            ‹div class="alert alert-success">
+                            ‹div class="alert alert-success"> 
                                 <?= htmlspecialchars(
                                 $mensagem,
                                 ENT_QUOTES,
                                 'UTF-8'
                             )   ?>
+
                             </div>
+                            
                         <?php endif; ?>
 
                         <form method="POST" action="?controller=auth&action=entrar">
