@@ -1,18 +1,25 @@
 <?php
 declare(strict_types=1);
+
 require_once __DIR__ . '/config-view.php';
+
 $tituloPagina = $tituloPagina ?? 'AtendeLab';
+
 $usuarioLogado = $_SESSION['usuario'] ?? [];
+
 $nomeUsuario = htmlspecialchars(
     (string) ($usuarioLogado['nome'] ?? 'Usuário'),
     ENT_QUOTES,
     'UTF-8'
 );
+
 $perfilUsuario = htmlspecialchars(
     (string) ($usuarioLogado['perfil'] ?? ''),
     ENT_QUOTES,
     'UTF-8'
 );
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -39,7 +46,7 @@ rel="stylesheet">
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
     <div class="container">
-        <a class="navbar-brand fw-semibold" href="<?= $baseUrl 
+        <a class="navbar-brand fw-semibold" href="<?= $baseUrl
 ?>?controller=auth&action=dashboard">
             AtendeLab
         </a>
@@ -79,7 +86,7 @@ data-bs-target="#menuPrincipal"
                         : ''
                     ?>
                 </span>
-                <a class="btn btn-outline-light btn-sm" href="<?= $baseUrl 
+                <a class="btn btn-outline-light btn-sm" href="<?= $baseUrl
 ?>?controller=auth&action=logout">
                     Sair
                 </a>

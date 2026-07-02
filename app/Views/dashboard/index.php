@@ -42,11 +42,11 @@ backend.</p>
         <h2 class="h5">Acesso rápido</h2>
         <p class="text-secondary">Use os módulos abaixo para cadastrar e consultar dados reais do banco.</p>
         <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-success" href="<?= $baseUrl 
+            <a class="btn btn-success" href="<?= $baseUrl
 ?>?controller=frontend&action=pessoas">Gerenciar pessoas</a>
-            <a class="btn btn-outline-success" href="<?= $baseUrl 
+            <a class="btn btn-outline-success" href="<?= $baseUrl
 ?>?controller=frontend&action=tipos">Gerenciar tipos</a>
-            <a class="btn btn-outline-success" href="<?= $baseUrl 
+            <a class="btn btn-outline-success" href="<?= $baseUrl
 ?>?controller=frontend&action=atendimentos">Registrar atendimentos</a>
         </div>
     </div>
