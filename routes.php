@@ -7,6 +7,7 @@ require_once __DIR__ . '/app/Controllers/PessoasController.php';
 require_once __DIR__ . '/app/Controllers/TiposAtendimentosController.php';
 require_once __DIR__ . '/app/Controllers/AtendimentosController.php';
 require_once __DIR__ . '/app/Controllers/FrontendController.php';
+require_once __DIR__ . '/app/Controllers/DashboardController.php';
 
 $controller = $_GET['controller'] ?? 'auth';
 $action = $_GET['action'] ?? 'login';
@@ -61,6 +62,10 @@ switch ($controller) {
     
     case 'frontend':
         $obj = new FrontendController();
+        break;
+    
+    case 'dashboard':
+        $obj = new DashboardController();
         break;
 
     default:
