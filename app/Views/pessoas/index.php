@@ -98,8 +98,7 @@ document.getElementById('tituloFormulario').textContent = 'Nova pessoa'; abrirFo
             const dados = AtendeLabApi.toList(await AtendeLabApi.get('pessoas', 'listar'));
             const tbody = document.getElementById('tabelaPessoas');
             if (!dados.length) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center 
-py-4">Nenhuma pessoa cadastrada.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4">Nenhuma pessoa cadastrada.</td></tr>';
                 return;
             }
             tbody.innerHTML = dados.map(p => `<tr>
