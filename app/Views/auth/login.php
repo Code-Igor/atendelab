@@ -28,7 +28,7 @@ require_once __DIR__ . '/../layouts/config-view.php'
                         </p>
                     </div>
                     <?php if (!empty($mensagem)): ?>
-                        ‹div class="alert alert-success"> 
+                        <div class="alert alert-success">
                             <?= htmlspecialchars(
                             (string) $mensagem,
                             ENT_QUOTES,
@@ -39,9 +39,9 @@ require_once __DIR__ . '/../layouts/config-view.php'
                     <?php if (!empty($erroLogin)):?>
                         <div class="alert alert-danger">
                             <?= htmlspecialchars(
-                                (string) $erroLogin,
-                                ENT_QUOTES,
-                                'UTF-8'
+                            (string) $erroLogin,
+                            ENT_QUOTES,
+                            'UTF-8'
                             ) ?>
                         </div>
                     <?php endif; ?>
