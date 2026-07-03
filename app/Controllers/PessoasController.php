@@ -25,10 +25,9 @@ class PessoasController {
         $this->json($this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    public function buscarPorId(): void {
+    public function buscar(): void {
         // lê e valida o ID recebido por GET
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-        var_dump($_GET['id'] ?? null);
 
         if(!$id) {
             $this->json(['erro' => 'ID inválido'], 400);
