@@ -56,8 +56,6 @@ onclick="fecharFormulario()">Cancelar</button></div>
     </div>
 </div>
 
-<!-- carregando o javascript do bootstrap (fazer funcionar certas coisas como fechar os alertas) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const formTipo = document.getElementById('formTipo');
     const cardFormulario = document.getElementById('cardFormulario');

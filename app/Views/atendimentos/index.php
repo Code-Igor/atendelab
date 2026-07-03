@@ -170,6 +170,7 @@ require __DIR__ . '/../layouts/header.php';
         </div>
     </div>
 </div>
+
 <script>
 const formAtendimento = document.getElementById('formAtendimento');
 const cardFormulario = document.getElementById('cardFormulario');
