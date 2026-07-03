@@ -1,5 +1,8 @@
 <?php
 
+// importa funcoes auxiliares de autenticacao e sessao.
+require_once __DIR__ . '/../Middleware/auth.php';
+
 class AtendimentosController {
     private PDO $pdo;
 
@@ -74,10 +77,8 @@ class AtendimentosController {
             FILTER_VALIDATE_INT
         );
 
-        $usuarioId = filter_var(
-            $_POST['usuario_id'] ?? null,
-            FILTER_VALIDATE_INT
-        );
+        $usuario = usuarioAtual();
+        $usuarioId = $usuario['id'] ?? null;
 
         $descricao = trim($_POST['descricao'] ?? '');
         $data = $_POST['data_atendimento'] ?? '';
@@ -126,20 +127,32 @@ class AtendimentosController {
     }
 
     public function AlterarStatus(): void {
-        $id = filter_var($POST['id'] ?? null, FILTER_VALIDATE_INT);
+        $id = filter_var($_POST['id'] ?? null, FILTER_VALIDATE_INT);
         $status = $_POST['status'] ?? '';
         $observacao = trim($_POST['observacao_final'] ?? '');
 
+        
         if (!$id || !in_array(
             $status,
             ['aberto', 'em_andamento', 'concluido'],
             true
         )) {
             $this->json([
+                'erro' => 'Dados inválidos.'
+            ], 422);
+            return;
+        }
+
+        if (
+            $status === 'concluido' &&
+            $observacao === ''
+        ) {
+            $this->json([
                 'erro' => 'Informe a observação final para concluir.'
             ], 422);
             return;
         }
+
 
         $stmt = $this->pdo->prepare(
             'UPDATE atendimentos

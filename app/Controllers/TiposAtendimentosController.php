@@ -23,7 +23,7 @@ class TiposAtendimentosController {
     }
 
     public function buscar(): void {
-        $id = filter_input(INPUT_GET, 'id, FILTER_VALIDATE_INT');
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         if (!$id) {
             $this->json(['erro' => 'ID inválido.'], 400);
@@ -31,7 +31,7 @@ class TiposAtendimentosController {
         }
 
         $stmt = $this->pdo->prepare(
-            'SELECT id, nome. descricao, status
+            'SELECT id, nome, descricao, status
             FROM tipos_atendimentos WHERE id = :id'
         );
         $stmt->execute(['id' => $id]);

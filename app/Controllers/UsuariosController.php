@@ -33,7 +33,7 @@ class UsuariosController {
         header('Content-Type: application/json; charset=utf-8');
 
         // lê e valida o ID recebido por GET
-        $id = filter_input(INPUT_GET, 'id, FILTER_VALIDATE_INT');
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         if(!$id) {
             http_response_code(400);
