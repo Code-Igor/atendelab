@@ -270,7 +270,7 @@ async function carregarAtendimentos() {
 
             const responsavel = labelRegistro(
                 atendimento,
-                'responsavel',
+                'responsavel_nome',
                 'usuario',
                 'usuario_nome',
                 'nome_usuario'
